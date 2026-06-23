@@ -1,0 +1,67 @@
+{
+  "contract_name": "TechSolutions_ServiceAgreement.pdf",
+  "party_1": {
+    "value": "Meridian Financial Group, Inc.",
+    "confidence": 0.85,
+    "source": "gemini",
+    "latency_ms": 3241,
+    "model_used": "gemini"
+  },
+  "party_2": {
+    "value": "TechSolutions LLC",
+    "confidence": 0.85,
+    "source": "gemini",
+    "latency_ms": 2987,
+    "model_used": "gemini"
+  },
+  "effective_date": {
+    "value": "March 1, 2022",
+    "confidence": 0.78,
+    "source": "roberta",
+    "latency_ms": 1423,
+    "model_used": "roberta"
+  },
+  "expiration_date": {
+    "value": "March 31, 2024",
+    "confidence": 0.76,
+    "source": "roberta",
+    "latency_ms": 1198,
+    "model_used": "roberta"
+  },
+  "renewal": {
+    "value": "Automatically renews for one-year terms unless either party provides ninety (90) days written notice",
+    "confidence": 0.91,
+    "source": "roberta",
+    "latency_ms": 1344,
+    "model_used": "roberta"
+  },
+  "governing_law": {
+    "value": "State of Texas",
+    "confidence": 0.86,
+    "source": "roberta",
+    "latency_ms": 1267,
+    "model_used": "roberta"
+  },
+  "termination_for_cause": {
+    "value": "Client may terminate immediately if Provider commits material fraud or fails to cure a material breach within 15 days of written notice",
+    "confidence": 0.85,
+    "source": "gemini",
+    "latency_ms": 3102,
+    "model_used": "gemini"
+  },
+  "payment_terms": {
+    "value": "Client shall pay $25,000 per quarter, due within 45 days of invoice",
+    "confidence": 0.85,
+    "source": "gemini",
+    "latency_ms": 2876,
+    "model_used": "gemini"
+  },
+  "penalties": {
+    "value": "Late payments accrue interest at 2% per month",
+    "confidence": 0.85,
+    "source": "gemini",
+    "latency_ms": 2934,
+    "model_used": "gemini"
+  },
+  "total_latency_ms": 19372
+}

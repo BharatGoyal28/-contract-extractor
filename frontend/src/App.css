@@ -1,0 +1,145 @@
+/* ── Routing info banner ──────────────────────────────────────────── */
+.routing-info {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ── App shell ────────────────────────────────────────────────────── */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+/* ── Header ───────────────────────────────────────────────────────── */
+.app-header {
+  height: 52px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left { display: flex; align-items: center; gap: 14px; }
+
+.header-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--blue);
+  background: rgba(77,166,255,.1);
+  border: 1px solid rgba(77,166,255,.25);
+  border-radius: 4px;
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+
+.header-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.header-right { display: flex; align-items: center; gap: 16px; }
+
+.model-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.badge-dot.roberta { background: var(--blue); box-shadow: 0 0 6px var(--blue); }
+.badge-dot.gemini  { background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+
+.reset-btn {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--subtle);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all .2s;
+  font-family: var(--mono);
+  letter-spacing: 0.5px;
+}
+.reset-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ── Main ─────────────────────────────────────────────────────────── */
+.app-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 24px;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.app-footer {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+/* ── Idle wrap ────────────────────────────────────────────────────── */
+.idle-wrap {
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* ── Error card ───────────────────────────────────────────────────── */
+.error-card {
+  text-align: center;
+  padding: 60px 40px;
+  background: var(--bg2);
+  border: 1px solid rgba(255,77,77,.3);
+  border-radius: 16px;
+  max-width: 480px;
+  width: 100%;
+}
+
+.error-icon {
+  font-size: 36px;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+.error-title { font-size: 18px; font-weight: 600; color: var(--bright); margin-bottom: 8px; }
+.error-msg { font-size: 13px; color: var(--subtle); font-family: var(--mono); line-height: 1.6; }

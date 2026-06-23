@@ -1,0 +1,108 @@
+.upload-outer {
+  max-width: 640px;
+  width: 100%;
+  text-align: center;
+}
+
+.upload-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.upload-headline {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--bright);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+
+.upload-sub {
+  font-size: 14px;
+  color: var(--subtle);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+/* Drop zone */
+.drop-zone {
+  background: var(--bg2);
+  border: 2px dashed var(--border2);
+  border-radius: 16px;
+  padding: 56px 40px;
+  cursor: pointer;
+  transition: border-color .25s, background .25s, transform .15s;
+  user-select: none;
+  position: relative;
+  outline: none;
+}
+
+.drop-zone:hover, .drop-zone:focus-visible {
+  border-color: var(--blue);
+  background: rgba(77,166,255,.04);
+  transform: translateY(-2px);
+}
+
+.drop-zone.dragging {
+  border-color: var(--green);
+  background: rgba(61,255,136,.05);
+  transform: translateY(-4px);
+}
+
+.drop-icon {
+  color: var(--muted);
+  margin-bottom: 20px;
+  transition: color .25s;
+}
+.drop-zone:hover .drop-icon, .drop-zone.dragging .drop-icon {
+  color: var(--blue);
+}
+.drop-zone.dragging .drop-icon { color: var(--green); }
+
+.drop-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.drop-or {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-family: var(--mono);
+}
+
+.drop-browse {
+  font-size: 13px;
+  color: var(--blue);
+  font-family: var(--mono);
+  letter-spacing: 0.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Field chips */
+.upload-fields-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.field-chip {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--mono);
+  letter-spacing: 0.5px;
+}

@@ -5,9 +5,11 @@ __pycache__/
 cache/
 *.json
 !sample_outputs/example_output.json
-!sample_outputs/comparison_table.json
 .venv/
 venv/
 *.egg-info/
 dist/
 build/
+frontend/node_modules/
+frontend/dist/
+.cache/

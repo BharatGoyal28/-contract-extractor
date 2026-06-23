@@ -2,18 +2,21 @@
 
 A hybrid NLP pipeline that extracts structured information from legal contracts using RoBERTa-base-CUAD (extractive QA) and Gemini 2.5 Flash (generative extraction). Each field is routed to the model that performs best for it.
 
+Comes with both a **web UI** (drag and drop PDF → contract profile card) and a **Python package** (import and use in code).
+
 ---
 
 ## What It Does
 
-Upload a PDF contract and get back a structured JSON with nine fields extracted: party names, dates, governing law, renewal terms, payment terms, termination conditions, and penalties. The pipeline automatically uses the right model for each field based on benchmark results.
+Upload a PDF contract and get back a structured profile with nine fields extracted: party names, dates, governing law, renewal terms, payment terms, termination conditions, and penalties. The pipeline automatically uses the right model for each field — no model selection needed.
 
 ---
 
 ## Prerequisites
 
 - Python 3.10 or higher
-- A Gemini API key (free tier available at [aistudio.google.com](https://aistudio.google.com))
+- Node.js 18 or higher (for the UI only)
+- A Gemini API key — free tier at [aistudio.google.com](https://aistudio.google.com)
 - ~2 GB free RAM for the RoBERTa model
 - Internet connection for first run (downloads ~500 MB model)
 
@@ -23,34 +26,70 @@ Upload a PDF contract and get back a structured JSON with nine fields extracted:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/contract-extractor.git
-cd contract-extractor
+git clone https://github.com/BharatGoyal28/-contract-extractor.git
+cd -contract-extractor
 
-# 2. Install dependencies
+# 2. Install Python dependencies
 pip install -r requirements.txt
 
 # 3. Add your Gemini API key
-echo "GEMINI_API_KEY=your_key_here" > .env
+# Create a .env file in the root folder:
+GEMINI_API_KEY=your_key_here
+
+# 4. Install frontend dependencies (for UI only)
+cd frontend
+npm install
+cd ..
 ```
 
 ---
 
-## How To Run On A Single Contract
+## Option A — Run With UI (Recommended)
 
-**From a PDF file:**
+**Terminal 1 — Backend:**
+```bash
+python -m uvicorn main:app --host 127.0.0.1 --port 8002
+```
+
+Wait for:
+```
+INFO:     Application startup complete.
+```
+
+**Terminal 2 — Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+
+Open **http://localhost:5174** in your browser.
+
+You will see:
+- Drag and drop upload area
+- Processing animation while extracting
+- Contract profile card with all 9 fields
+- Confidence bars and model badges per field
+- Deadline flags for expiring contracts
+
+---
+
+## Option B — Use As Python Package
+
 ```python
 from extractor import load_pdf, extract_contract, profile_to_dict
 
+# From a PDF file
 text    = load_pdf("your_contract.pdf")
 profile = extract_contract(text, contract_name="your_contract.pdf")
 result  = profile_to_dict(profile)
 
-print(result["party_1"]["value"])       # Acme Corporation
-print(result["effective_date"]["value"]) # January 1, 2023
+print(result["party_1"]["value"])        # Meridian Financial Group, Inc.
+print(result["effective_date"]["value"]) # March 1, 2022
+print(result["governing_law"]["value"])  # State of Texas
 ```
 
-**From raw text:**
 ```python
+# From raw text
 from extractor import load_text, extract_contract, profile_to_dict
 
 text    = load_text(open("contract.txt").read())
@@ -63,13 +102,12 @@ result  = profile_to_dict(profile)
 ## How To Run The Benchmark
 
 ```bash
-cd contract-extractor
 python -m evaluate.benchmark
 ```
 
 Runs the combined extractor on 8 evaluation contracts and prints:
 - Per-contract results table
-- Accuracy comparison: Monday single model vs combined extractor
+- Accuracy comparison: single model vs combined extractor
 
 ---
 
@@ -103,13 +141,13 @@ Runs the combined extractor on 8 evaluation contracts and prints:
 }
 ```
 
-Full sample output: [`sample_outputs/example_output.json`](sample_outputs/example_output.json)
+Full sample: [`sample_outputs/example_output.json`](sample_outputs/example_output.json)
 
 ---
 
 ## Field Routing
 
-Each field is routed to the model that performed best in benchmarking:
+Routing is fixed based on benchmark results. No user selection needed.
 
 | Field | Model | Accuracy |
 |-------|-------|----------|
@@ -133,15 +171,25 @@ To change routing, edit `FIELD_MODEL_MAP` in [`extractor/config.py`](extractor/c
 contract-extractor/
 ├── README.md
 ├── requirements.txt
-├── .env                        # Add your GEMINI_API_KEY here
+├── main.py                     # FastAPI server (port 8002)
+├── .env                        # Add GEMINI_API_KEY here
 ├── extractor/
 │   ├── __init__.py             # Public API
 │   ├── config.py               # FIELD_MODEL_MAP and settings
 │   ├── models.py               # RoBERTa and Gemini interfaces
 │   ├── ingestion.py            # PDF loading and text cleaning
 │   └── extraction.py           # Combined extraction pipeline
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx             # Main app — no model dropdown
+│   │   └── components/
+│   │       ├── UploadZone.jsx
+│   │       ├── ProcessingState.jsx
+│   │       └── ContractProfile.jsx
+│   └── vite.config.js          # Runs on port 5174
 ├── evaluate/
-│   └── benchmark.py            # Evaluation script
+│   ├── benchmark.py            # 8-contract evaluation script
+│   └── build_comparison.py     # Comparison table from saved data
 └── sample_outputs/
     └── example_output.json     # Sample pipeline output
 ```
@@ -150,7 +198,8 @@ contract-extractor/
 
 ## Notes
 
-- First run downloads the RoBERTa model (~500 MB) and takes ~2 minutes
+- First run downloads RoBERTa model (~500 MB) — takes ~2 minutes
 - Subsequent runs load from cache in ~8 seconds
-- Gemini free tier: 20 requests/day. Each contract uses 5 calls (one per Gemini field)
-- Rate limit handling: automatic exponential backoff built in
+- Gemini free tier: 20 requests/day — each contract uses 5 Gemini calls
+- Rate limit handling: exponential backoff built in automatically
+- UI runs on port **5174**, backend on port **8002**
